@@ -24,7 +24,7 @@ end
 StopSwitch()
 
 UIS.InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.Z then
+    if input.KeyCode == Enum.KeyCode.B then
         wait(3)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/PJ-Godmode"))()
 
