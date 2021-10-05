@@ -26,7 +26,7 @@ StopSwitch()
 UIS.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.B then
         wait(3)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/PJ-Godmode"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/PJ-Godmodee.lua"))()
 
         for _, v in pairs(game.Lighting:GetChildren()) do
             v:Destroy()
