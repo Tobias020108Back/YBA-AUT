@@ -1,4 +1,4 @@
-while _G.farm do wait()
+while _G.farm do wait(0.5)
 _ztFacG98WpXpHJ1O, Protected_by_MoonSecV2, Discord = 'discord.gg/gQEH2uZxUk'
 
 
