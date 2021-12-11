@@ -1,0 +1,5 @@
+Tutorial:
+
+First Open up Darkdex
+Then go into: ReplicatedStorage > Models 
+and there u go! just open one of the 3 folders and thats the item/weapon/armor names!
