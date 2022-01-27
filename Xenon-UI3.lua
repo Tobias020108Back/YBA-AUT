@@ -140,7 +140,7 @@ function LibraryV2.UI(Name)
 
     local Library
     Library = {
-        _UI = game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/Xenon-UI2"),
+        _UI = game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/Xenon-UI2.lua"),
         Name = Name or "Untitled",
         Tabs = {},
         State = false,
