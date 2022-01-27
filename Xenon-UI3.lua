@@ -140,7 +140,7 @@ function LibraryV2.UI(Name)
 
     local Library
     Library = {
-        _UI = game:GetObjects("rbxassetid://8388979705")[1],
+        _UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/Xenon-UI2")),
         Name = Name or "Untitled",
         Tabs = {},
         State = false,
