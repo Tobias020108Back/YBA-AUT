@@ -1,5 +1,5 @@
 LibraryV2 = {}
-LibraryV2.__index = LibraryV2
+LibraryV2.index = LibraryV2
 LibraryV2.Notifications = {}
 
 --[[ // Plan 
@@ -34,7 +34,7 @@ LibraryV2.Notifications = {}
 
             Get (func) - {
                 arguments:
-                    [1] = string (can get a certain piece of data about the asset if it's available eg. Toggle_State)
+                    [1] = string (can get a certain piece of data about the asset if it's available eg. ToggleState)
             }
 
         }
@@ -64,7 +64,7 @@ local hf = hookfunction
 
 -- Outer blur
 local Blur = Instance.new("BlurEffect")
-Blur.Name = "Xenon_Blur"
+Blur.Name = "XenonBlur"
 Blur.Size = 0
 Blur.Parent = game.Lighting
 
@@ -73,12 +73,12 @@ Blur.Parent = game.Lighting
 
 function TandemTween(tbl, according, totaltime)
 	
-	local time_per = (totaltime/#tbl)
+	local timeper = (totaltime/#tbl)
 	
 	for i = 1, #tbl do
 		
-		Tween(according[i], {Position = tbl[i]}, time_per)
-		task.wait(time_per)
+		Tween(according[i], {Position = tbl[i]}, timeper)
+		task.wait(timeper)
 		
 	end
 	
@@ -101,26 +101,26 @@ function Ripple(asset, x, y)
     assert(x and y, "Please provide x and y coordinates!")
 
     coroutine.resume(coroutine.create(function()
-         local New_Ripple = GetAsset("RippleAsset"):Clone()
-         New_Ripple.Parent = asset
-         New_Ripple.ImageTransparency = 0.6
-         New_Ripple.Position = u2(0, (x-asset.AbsolutePosition.X), 0, (y-asset.AbsolutePosition.Y-36))
-		 New_Ripple.Size = u2(0, 0, 0, 0)
+         local NewRipple = GetAsset("RippleAsset"):Clone()
+         NewRipple.Parent = asset
+         NewRipple.ImageTransparency = 0.6
+         NewRipple.Position = u2(0, (x-asset.AbsolutePosition.X), 0, (y-asset.AbsolutePosition.Y-36))
+		 NewRipple.Size = u2(0, 0, 0, 0)
 
          local Length, Size = 0.6, (asset.AbsoluteSize.X >= asset.AbsoluteSize.Y and asset.AbsoluteSize.X * 1.5 or button.AbsoluteSize.Y * 1.5)
-         local Tween = game:GetService("TweenService"):Create(New_Ripple, TweenInfo.new(Length, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+         local Tween = game:GetService("TweenService"):Create(NewRipple, TweenInfo.new(Length, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
             Size = u2(0, Size, 0, Size),
             Position = u2(0.5, (-Size / 2), 0.5, (-Size / 2)),
             ImageTransparency = 1
          })
          Tween:Play()
          Tween.Completed:Wait()
-         New_Ripple:Destroy()
+         NewRipple:Destroy()
     end))
 end
 
-function WaitUntil(wait_for)
-    repeat task.wait() until wait_for
+function WaitUntil(waitfor)
+    repeat task.wait() until waitfor
 end
 
 function GetAsset(Asset)
@@ -135,50 +135,50 @@ function LibraryV2.UI(Name)
 
     if game.CoreGui:FindFirstChild("TUI2") then
         game.CoreGui.TUI2:Destroy();
-        game.Lighting:FindFirstChild("Xenon_Blur"):Destroy();
+        game.Lighting:FindFirstChild("XenonBlur"):Destroy();
     end
 
     local Library
     Library = {
-        _UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/Xenon-UI")),
+        UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/Xenon-UI")),
         Name = Name or "Untitled",
         Tabs = {},
         State = false,
         ToggleKey = Enum.KeyCode.LeftControl,
         Debounce = false,
 
-        Show_UI = function()
-            local P = Library._UI.Lib.Position
-            Tween(Library._UI.Lib, {Position = u2(0.75, P.X.Offset, P.Y.Size, P.Y.Offset)})
+        ShowUI = function()
+            local P = Library.UI.Lib.Position
+            Tween(Library.UI.Lib, {Position = u2(0.75, P.X.Offset, P.Y.Size, P.Y.Offset)})
         end,
         
-        Hide_UI = function()
+        HideUI = function()
             local P = Library.UI.Lib.Position
-            Tween(Library._UI.Lib, {Position = u2(1, P.X.Offset, P.Y.Size, P.Y.Offset)})
+            Tween(Library.UI.Lib, {Position = u2(1, P.X.Offset, P.Y.Size, P.Y.Offset)})
         end,
 
-        Hide_All = function()
-            for i,v in pairs(Library._UI.Lib.Holder:GetChildren()) do
+        HideAll = function()
+            for i,v in pairs(Library.UI.Lib.Holder:GetChildren()) do
                 if v.ClassName ~= "UIListLayout" and v.ClassName ~= "Folder" then
                     v.Visible = false
                 end
             end
         end,
 
-        Show = function(show_tbl)
-            for i,v in pairs(show_tbl) do
+        Show = function(showtbl)
+            for i,v in pairs(showtbl) do
                 v.Visible = true             
             end
         end,
 
-        Hide = function(hide_tbl)
-            for i,v in pairs(hide_tbl) do
+        Hide = function(hidetbl)
+            for i,v in pairs(hidetbl) do
                 v.Visible = false                
             end
         end,
 
         Startup = function()
-            local TUI = Library._UI
+            local TUI = Library.UI
             local Widgets = TUI.Widgets
             local Widget1, Widget2, Widget3, Widget4 = Widgets.Bookmarks, Widgets.Widget, Widgets.Discord, Widgets.Music
             local Tabs = TUI.TabContainer
@@ -192,7 +192,7 @@ function LibraryV2.UI(Name)
             local TPos = TopMenu.Position
             local TimePos = Time.Position
             local TLPos = TimeLabel.Position
-            local Transparency_Back = TUI.Darkener.BackgroundTransparency
+            local TransparencyBack = TUI.Darkener.BackgroundTransparency
             local Widgets = {Widget1, Widget2, Widget3, Widget4}
             local WidgetPos = {
                 
@@ -213,20 +213,20 @@ function LibraryV2.UI(Name)
             TimeLabel.TextTransparency = 1
             TUI.Darkener.BackgroundTransparency = 1
             
-            for i,v in pairs(Library._UI:GetChildren()) do
+            for i,v in pairs(Library.UI:GetChildren()) do
                 if v.ClassName ~= "Folder" and v.Name ~= "Darkener" and v.Name ~= "MusicPlayer" then
                     v.Visible = true
                 end
             end
 
-            for i,v in pairs(Library._UI.Widgets:GetChildren()) do
+            for i,v in pairs(Library.UI.Widgets:GetChildren()) do
                 v.Visible = true
             end
             
             game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
 
             --// Animate
-            Tween(TUI.Darkener, {BackgroundTransparency = Transparency_Back}, 0.5, true)
+            Tween(TUI.Darkener, {BackgroundTransparency = TransparencyBack}, 0.5, true)
             TandemTween(WidgetPos, Widgets, 0.5)
             Tween(BottomMenu, {Position = BMPos}, 0.25)
             Tween(Tabs, {Position = TabsPos}, 0.25)
@@ -239,57 +239,57 @@ function LibraryV2.UI(Name)
             if Library.State == true then
                 Library.Debounce = true
                 Tween(Blur, {Size = 24}, 0.5)
-                Library._UI.Enabled = true
+                Library.UI.Enabled = true
                 Library.Startup()
                 Library.Debounce = false    
             else
                 Library.Debounce = true
-                Library._UI.Enabled = false
+                Library.UI.Enabled = false
                 Tween(Blur, {Size = 0}, 0.5, true)
                 Library.Debounce = false
                 game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
             end
         end
     }
-    Library._UI.Parent = game.CoreGui
-    Library._UI.Enabled = false
-    Library._UI:FindFirstChild("Name").Text = Library.Name
-    Library._UI.IgnoreGuiInset = true
+    Library.UI.Parent = game.CoreGui
+    Library.UI.Enabled = false
+    Library.UI:FindFirstChild("Name").Text = Library.Name
+    Library.UI.IgnoreGuiInset = true
 
-    Library._UI.Lib.Exit.MouseButton1Down:Connect(function()
-        Tween(Library._UI.Lib, {Position = u2(1, 0, Library._UI.Lib.Position.Y.Scale, 0)}, 0.5) 
+    Library.UI.Lib.Exit.MouseButton1Down:Connect(function()
+        Tween(Library.UI.Lib, {Position = u2(1, 0, Library.UI.Lib.Position.Y.Scale, 0)}, 0.5) 
     end)
 
     --// Top Menu
-    local TopMenu = Library._UI.Top
+    local TopMenu = Library.UI.Top
 
-    local ELib_Data
-    local _Data = pcall(function()
-        ELib_Data = game:GetService("HttpService"):JSONDecode(readfile("cf.elib"))
+    local ELibData
+    local Data = pcall(function()
+        ELibData = game:GetService("HttpService"):JSONDecode(readfile("cf.elib"))
     end)
 
     function SaveData()
-        writefile(ELib_Data.Config_Name, game:GetService("HttpService"):JSONEncode(ELib_Data))
+        writefile(ELibData.ConfigName, game:GetService("HttpService"):JSONEncode(ELibData))
     end
 
-    if not _Data then
-        ELib_Data = {
-            Last_Visit = os.date("%x", os.time()),
-            Config_Name = "cf_l.elib",
+    if not Data then
+        ELibData = {
+            LastVisit = os.date("%x", os.time()),
+            ConfigName = "cfl.elib",
         }
 
         SaveData()
     end
 
-    TopMenu.last.Text = "last visit: "..ELib_Data.Last_Visit
-    TopMenu.cf.Text = "cf name: "..ELib_Data.Config_Name
+    TopMenu.last.Text = "last visit: "..ELibData.LastVisit
+    TopMenu.cf.Text = "cf name: "..ELibData.ConfigName
     TopMenu.holder.TextLabel.Text = "welcome, "..game.Players.LocalPlayer.Name
 
-    ELib_Data.Last_Visit = os.date("%x", os.time())
+    ELibData.LastVisit = os.date("%x", os.time())
     SaveData()
 
     --// Music System
-    local Widgets = Library._UI.Widgets
+    local Widgets = Library.UI.Widgets
     local MusicWidget = Widgets.Music
 
     local Spotify
@@ -371,9 +371,9 @@ function LibraryV2.UI(Name)
                 return {
                     Artist = parsed['item']['artists'][1]['name'],
                     Title = parsed['item']['name'],
-                    Current = parsed['progress_ms'],
-                    Maximum = parsed['item']['duration_ms'],
-                    Playing = parsed['is_playing'],
+                    Current = parsed['progressms'],
+                    Maximum = parsed['item']['durationms'],
+                    Playing = parsed['isplaying'],
                 }
             else
                 return {
@@ -388,9 +388,9 @@ function LibraryV2.UI(Name)
         Tween(MusicWidget.Previous, {ImageTransparency = 0}, 0.3)
         Tween(MusicWidget.Skip, {ImageTransparency = 0}, 0.3)
         Tween(MusicWidget.Pause, {ImageTransparency = 0}, 0.3)
-        Library._UI.MusicPlayer.Visible = true
+        Library.UI.MusicPlayer.Visible = true
 
-        local MusicPlayer = Library._UI.MusicPlayer
+        local MusicPlayer = Library.UI.MusicPlayer
 
         MusicWidget.Previous.MouseButton1Click:Connect(function()
             pcall(Spotify, 'https://api.spotify.com/v1/me/player/previous', 'POST', TokenData)
@@ -409,8 +409,8 @@ function LibraryV2.UI(Name)
         end)
 
         while wait(0.25) do
-            local Data_, Returned = pcall(Spotify, 'https://api.spotify.com/v1/me/player/currently-playing', 'GET', TokenData)
-            if Data_ then
+            local Data, Returned = pcall(Spotify, 'https://api.spotify.com/v1/me/player/currently-playing', 'GET', TokenData)
+            if Data then
                 local Current = math.floor(Returned.Current/1000)
                 local Max = math.floor(Returned.Maximum/1000)
 
@@ -473,15 +473,15 @@ function LibraryV2:Tab(Name, Icon)
             Tab.Tab.Icon.Image = Tab.Icon
             Tab.Tab.Effect.TL.Label.Text = Tab.Name
             
-            local _m = #self.Tabs-1
-            self._UI.TabContainer.Size = u2(0, 71, 0, (80)+(55*_m + (5*(_m+1))))
+            local m = #self.Tabs-1
+            self.UI.TabContainer.Size = u2(0, 71, 0, (80)+(55*m + (5*(m+1))))
         end,
 
-        _UI = self._UI
+        UI = self.UI
     }
 	table.insert(self.Tabs, Tab)
     
-    Tab.Tab.Parent = self._UI.TabContainer.Holder
+    Tab.Tab.Parent = self.UI.TabContainer.Holder
     Tab.Update()
 
     Tab.Tab.MouseEnter:Connect(function()
@@ -505,13 +505,13 @@ function LibraryV2:Tab(Name, Icon)
     end)
 
     Tab.Tab.MouseButton1Down:Connect(function()
-        Tween(self._UI.Lib, {Position = u2(0.75, 0, self._UI.Lib.Position.Y.Scale, 0)}, 0.5)
-        self.Hide_All()
+        Tween(self.UI.Lib, {Position = u2(0.75, 0, self.UI.Lib.Position.Y.Scale, 0)}, 0.5)
+        self.HideAll()
         self.Show(Tab.Containers)
     end)
     
-    self._UI.Lib.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-        self._UI.Lib.Holder.CanvasSize = UDim2.new(0,0,0,self._UI.Lib.Holder.UIListLayout.AbsoluteContentSize.Y)
+    self.UI.Lib.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        self.UI.Lib.Holder.CanvasSize = UDim2.new(0,0,0,self.UI.Lib.Holder.UIListLayout.AbsoluteContentSize.Y)
     end)
 
     return setmetatable(Tab, LibraryV2)
@@ -562,7 +562,7 @@ function LibraryV2:Container(Name)
     }
     table.insert(self.Containers, Container.Container)
 
-    Container.Container.Parent = self._UI.Lib.Holder
+    Container.Container.Parent = self.UI.Lib.Holder
     Container.Update()
 
     Container.Container.ImageLabel.MouseButton1Down:Connect(function()
@@ -673,7 +673,7 @@ function LibraryV2:Dropdown(Name, List, Callback)
                 Dropdown.Other.ExtensionSize = 375;
             end
 
-            for _, v in pairs(Dropdown.Asset.DropContainer:GetChildren()) do
+            for , v in pairs(Dropdown.Asset.DropContainer:GetChildren()) do
                 if v:IsA("TextButton") then
                     v:Destroy()
                 end
@@ -682,13 +682,13 @@ function LibraryV2:Dropdown(Name, List, Callback)
             --// Refresh with New ones
             local Template = GetAsset("DropdownTemplate")
             for i,v in pairs(Dropdown.List) do
-                local New_Template = Template:Clone()
-                New_Template.Parent = Dropdown.Asset.DropContainer
-                New_Template.Visible = true
-                New_Template.Text = "   " .. v
-                New_Template.Name = v
+                local NewTemplate = Template:Clone()
+                NewTemplate.Parent = Dropdown.Asset.DropContainer
+                NewTemplate.Visible = true
+                NewTemplate.Text = "   " .. v
+                NewTemplate.Name = v
 
-                New_Template.MouseButton1Down:Connect(function()
+                NewTemplate.MouseButton1Down:Connect(function()
                     if Dropdown.State == false then
                         pcall(Dropdown.Callback, v)
                         Dropdown.Debounce = true
@@ -773,20 +773,20 @@ function LibraryV2:Label(Text)
     return setmetatable(Label, LibraryV2)
 end
 
-function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
+function LibraryV2:Keybind(Name, StartingKey, BlacklistedKeys, Callback)
     local Keybind
     Keybind = {
 
         Name = Name,
-        Key = Starting_Key or Enum.KeyCode.E,
-        Blacklist = Blacklisted_Keys or {"W", "A", "S", "D"},
+        Key = StartingKey or Enum.KeyCode.E,
+        Blacklist = BlacklistedKeys or {"W", "A", "S", "D"},
         Callback = Callback or function() end,
         Debounce = false,
         Class = "Keybind",
 
         Asset = GetAsset("Key"):Clone(),
 
-        Connections = {In_Change = false},
+        Connections = {InChange = false},
 
         ValidKey = function(Key)
 			return (typeof(Key) == "EnumItem")
@@ -808,7 +808,7 @@ function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
 
         Update = function(...)
             Keybind.Asset.Text = "  "..Keybind.Name
-            Keybind.Asset.Key_Back.Key_Label.Text = Keybind.GetKeystringFromEnum(Keybind.Key)
+            Keybind.Asset.KeyBack.KeyLabel.Text = Keybind.GetKeystringFromEnum(Keybind.Key)
         end
     }
     table.insert(self.Assets, Keybind.Asset)
@@ -820,7 +820,7 @@ function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
     Keybind.Connections.KeyPress = game:GetService("UserInputService").InputBegan:Connect(function(Input, GameProcessedEvent)
         if GameProcessedEvent then return end
 
-        if Input.KeyCode == Keybind.Key and not Keybind.Connections.In_Change == true then
+        if Input.KeyCode == Keybind.Key and not Keybind.Connections.InChange == true then
             pcall(Keybind.Callback)
         end
     end)
@@ -828,7 +828,7 @@ function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
     Keybind.Asset.MouseButton1Down:Connect(function(X, Y)
         if not Keybind.Debounce then
             Keybind.Debounce = true
-            Keybind.Connections.In_Change = true
+            Keybind.Connections.InChange = true
             Ripple(Keybind.Asset, X, Y)
 
             local Continue = false
@@ -840,14 +840,14 @@ function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
             Keybind.Key = "..."
             Keybind.Update()
 
-            Keybind.Connections.Change_Connection = game:GetService("UserInputService").InputBegan:Connect(function(Input, GameProcessedEvent)
+            Keybind.Connections.ChangeConnection = game:GetService("UserInputService").InputBegan:Connect(function(Input, GameProcessedEvent)
                 if GameProcessedEvent then return end
                 if Keybind.IsNotMouse(Input) then return end
 
                 if Input.KeyCode == Enum.KeyCode.Return then
                     Continue = true
                     Keybind.Key = Cache.OldKey
-                    Keybind.Connections.Change_Connection:Disconnect()
+                    Keybind.Connections.ChangeConnection:Disconnect()
 
                     Keybind.Update()  
                 end
@@ -858,12 +858,12 @@ function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
                     Continue = true
 
                     pcall(Keybind.Callback, Keybind.GetKeystringFromEnum(Keybind.Key))
-                    Keybind.Connections.Change_Connection:Disconnect()
+                    Keybind.Connections.ChangeConnection:Disconnect()
                 end
             end)
             repeat wait() until Continue
             Keybind.Name = Cache.OldText
-            Keybind.Connections.In_Change = false
+            Keybind.Connections.InChange = false
             Cache = nil
 
             Keybind.Update()
@@ -922,7 +922,7 @@ function LibraryV2:TextBox(Name, Callback)
     end)
 end
 
-function LibraryV2:Slider(Name, Min, Max, Start, Callback, Use_Decimals)
+function LibraryV2:Slider(Name, Min, Max, Start, Callback, UseDecimals)
     local Slider
     Slider = {
 
@@ -944,7 +944,7 @@ function LibraryV2:Slider(Name, Min, Max, Start, Callback, Use_Decimals)
             Slider.Asset:FindFirstChild("Name").Text = Slider.Name
 
             local New = Slider.Value
-            Slider.Asset.Slider_Whole.Slider:TweenSize(UDim2.new((New - Slider.Min)/(Slider.Max - Slider.Min), 0, 1, 0), "Out", "Sine", 0.1, true)
+            Slider.Asset.SliderWhole.Slider:TweenSize(UDim2.new((New - Slider.Min)/(Slider.Max - Slider.Min), 0, 1, 0), "Out", "Sine", 0.1, true)
 			Slider.Asset.Percentage.Text = tostring(New)
 
             --[[
@@ -960,14 +960,14 @@ function LibraryV2:Slider(Name, Min, Max, Start, Callback, Use_Decimals)
     Slider.Asset.Parent = self.Container.ScrollingFrame
     Slider.Update()
 
-    Slider.Asset.Slider_Whole.Slider.Circle.InputBegan:Connect(
+    Slider.Asset.SliderWhole.Slider.Circle.InputBegan:Connect(
         function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 then
                 Slider.Dragging = true
             end
         end
     )
-    Slider.Asset.Slider_Whole.Slider.Circle.InputEnded:Connect(
+    Slider.Asset.SliderWhole.Slider.Circle.InputEnded:Connect(
         function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 then
                 Slider.Dragging = false
@@ -978,16 +978,16 @@ function LibraryV2:Slider(Name, Min, Max, Start, Callback, Use_Decimals)
     game:GetService("UserInputService").InputChanged:Connect(
     function(Input)
         if Slider.Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then
-            local Bound = Slider.Asset.Slider_Whole.AbsoluteSize.X
+            local Bound = Slider.Asset.SliderWhole.AbsoluteSize.X
             local Pos1 =
                 UDim2.new(
-                    math.clamp((Input.Position.X - Slider.Asset.Slider_Whole.Slider.AbsolutePosition.X) / Bound, 0, 1),
+                    math.clamp((Input.Position.X - Slider.Asset.SliderWhole.Slider.AbsolutePosition.X) / Bound, 0, 1),
                     0,
                     1,
                     0
                 )
-            Slider.Asset.Slider_Whole.Slider:TweenSize(Pos1, "Out", "Sine", 0.1, true)
-            Slider.Value = (Use_Decimals and RoundNumber((((Pos1.X.Scale * Slider.Max) / Slider.Max) * (Slider.Max - Slider.Min) + Slider.Min), 1) or math.floor((((Pos1.X.Scale * Slider.Max) / Slider.Max) * (Slider.Max - Slider.Min) + Slider.Min)))
+            Slider.Asset.SliderWhole.Slider:TweenSize(Pos1, "Out", "Sine", 0.1, true)
+            Slider.Value = (UseDecimals and RoundNumber((((Pos1.X.Scale * Slider.Max) / Slider.Max) * (Slider.Max - Slider.Min) + Slider.Min), 1) or math.floor((((Pos1.X.Scale * Slider.Max) / Slider.Max) * (Slider.Max - Slider.Min) + Slider.Min)))
             Slider.Asset.Percentage.Text = tostring(Slider.Value)
             pcall(Slider.Callback, Slider.Value)
         end
@@ -996,25 +996,25 @@ function LibraryV2:Slider(Name, Min, Max, Start, Callback, Use_Decimals)
 
 end
 
-function LibraryV2:Update_(a_1, ...)
+function LibraryV2:Update(a1, ...)
     local Class = self.Class;
 
-    if not a_1 then return end;
+    if not a1 then return end;
     if Class == "Button" then
-        self.Callback = a_1;
+        self.Callback = a1;
     elseif Class == "Toggle" then
-        self.State = a_1;
+        self.State = a1;
         self.Update();
     
         task.spawn(function()
             pcall(self.Callback, self.State)
         end)
     elseif Class == "Label" then
-        self.Text = a_1;
+        self.Text = a1;
     elseif Class == "Slider" then       
-        self.Value = a_1;
+        self.Value = a1;
     elseif Class == "Dropdown" then
-        self.List = a_1;
+        self.List = a1;
     end
 
     self.Update();
@@ -1045,14 +1045,14 @@ function LibraryV2:UpdateNotifications()
 
     for i,v in ipairs(LibraryV2.Notifications) do
         --Let's determine if its a new notification or already tweened
-        local Move_Axis = (0.902 - (0.1 * (i-1)))
+        local MoveAxis = (0.902 - (0.1 * (i-1)))
         if v.Data.Notification.Position.X.Scale == 1 then
             -- New
-            v.Data.Notification.Position = u2(1, v.Data.Notification.Position.X.Offset, Move_Axis, v.Data.Notification.Position.Y.Offset)
-            Tween(v.Data.Notification, {Position = u2(0.825, v.Data.Notification.Position.X.Offset, Move_Axis, v.Data.Notification.Position.Y.Offset)}, 0.5)
+            v.Data.Notification.Position = u2(1, v.Data.Notification.Position.X.Offset, MoveAxis, v.Data.Notification.Position.Y.Offset)
+            Tween(v.Data.Notification, {Position = u2(0.825, v.Data.Notification.Position.X.Offset, MoveAxis, v.Data.Notification.Position.Y.Offset)}, 0.5)
         else
             -- Old
-            Tween(v.Data.Notification, {Position = u2(0.825, v.Data.Notification.Position.X.Offset, Move_Axis, v.Data.Notification.Position.Y.Offset)}, 0.5)
+            Tween(v.Data.Notification, {Position = u2(0.825, v.Data.Notification.Position.X.Offset, MoveAxis, v.Data.Notification.Position.Y.Offset)}, 0.5)
         end
     end
 end
