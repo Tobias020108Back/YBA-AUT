@@ -1,3 +1,4 @@
+-- made by coolmatt72#6707 (coolmatt72) on v3rm aswell as walter !!!#4155 monke hub discord : https://discord.gg/ZmDkXF3Tz7
 local cc = game.Workspace.CurrentCamera
 local udim2 = {}
 local instance = {}
@@ -2300,3 +2301,5 @@ rs.RenderStepped:Connect(function()
 		cursor.Visible = false
 	end
 end)
+--
+return library
