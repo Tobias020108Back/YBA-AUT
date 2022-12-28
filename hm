@@ -1,33 +1,3 @@
-Clone = function(func)
-   local New = func
-   
-   assert(type(func) == "function", "expected function you fucking penis", 2)
-   
-      local XPCALL = xpcall(setfenv, function(a1, a2)
-       return a1, a2
-       
-      end, func, getfenv(func))
-
-   if XPCALL then
-       return function(...)
-           return New(...)
-       end
-       
-   end
-   
-   return coroutine.wrap(function(...)
-       
-       while true do
-           New = coroutine.yield(New(...))
-       end
-       
-   end)
-
-end
-
---[[
-    HttpSpy v1.1.3
-]]
 
 assert(syn or http, "Unsupport exploit (should support syn.request or http.request)");
 
@@ -40,7 +10,7 @@ if options.SaveLogs then
 end;
 
 local Serializer = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotDSF/leopard/main/rbx/leopard-syn.lua"))();
-local clonef = Clone;
+local clonef = clonefunction;
 local pconsole = clonef(print);
 local format = clonef(string.format);
 local gsub = clonef(string.gsub);
