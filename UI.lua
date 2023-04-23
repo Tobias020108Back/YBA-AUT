@@ -337,6 +337,13 @@ do
         getgenv().library = nil
     end
 
+	 function library:hide(bool)
+        for i,v in next, self.hooks do v.Visible = bool end
+        for i,v in next, self.drawings.objects do v.Visible = bool end
+        for i,v in next, self.drawings.raw do v.Visible = bool end
+        for i,v in next, self.instances do v.Visible = bool end
+    end
+	
     function library:connection(signal, callback, tbl)
         local connection = signal:Connect(callback)
         table_insert(self.connections, connection)
