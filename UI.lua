@@ -336,12 +336,14 @@ do
         table_clear(library)
         getgenv().library = nil
     end
-
-	 function library:hide(bool)
-        for i,v in next, self.hooks do v.Visible = bool end
-        for i,v in next, self.drawings.objects do v.Visible = bool end
-        for i,v in next, self.drawings.raw do v.Visible = bool end
-        for i,v in next, self.instances do v.Visible = bool end
+         
+	local hidden = false;
+	
+	 function library:hide()
+        for i,v in next, self.hooks do v.Visible = not hidden end
+        for i,v in next, self.drawings.objects do v.Visible = not hidden end
+        for i,v in next, self.drawings.raw do v.Visible = not hidden end
+        for i,v in next, self.instances do v.Visible = not hidden end
     end
 	
     function library:connection(signal, callback, tbl)
