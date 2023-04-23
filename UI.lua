@@ -2,7 +2,7 @@
     /------------ [ octohook.xyz ui library ] ------------\
     | fully by liamm#0223 (561301972293255180)            |
     | last modified 12/17/2022                            |
-    | if used, give credit. (see above)                   |
+    | if used, give credit.                               |
     |                                                     |
     \-----------------------------------------------------/
 
@@ -114,7 +114,6 @@
 --]]
 
 -- // load
-
 local startup_args = ({...})[1] or {}
 if library ~= nil then
     library:unload()
@@ -3409,6 +3408,7 @@ do
 end
 
 -- // finish
+pcall( function()
 library.keybind_indicator = library:create('indicator', {title = 'keybinds', position = udim2_new(0,10,0,450), enabled = false})
 library.colorpicker = library:create('colorpicker', {})
 library.dropdown = {selected = nil, objects = {values = {}}, connections = {}}
@@ -3421,7 +3421,7 @@ library.dropdown.objects.background = library:create('rect', {
     Visible = false,
     ZIndex = 40,
 })
-
+end)
 -- library.dropdown.objects.scroll = library:create('rect', {
 --     Theme = {['Color'] = 'Accent'},
 --     Size = udim2_new(0,2,0.5,0),
