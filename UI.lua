@@ -340,10 +340,10 @@ do
 	local hidden = false;
 	
 	 function library:hide()
-        for i,v in next, self.hooks do v.Visible = not hidden end
-        for i,v in next, self.drawings.objects do v.Visible = not hidden end
-        for i,v in next, self.drawings.raw do v.Visible = not hidden end
-        for i,v in next, self.instances do v.Visible = not hidden end
+        for i,v in next, self.hooks do v.Visible = false end
+        for i,v in next, self.drawings.objects do v.Visible = false end
+        for i,v in next, self.drawings.raw do v.Visible = false end
+        for i,v in next, self.instances do v.Visible = false end
     end
 	
     function library:connection(signal, callback, tbl)
