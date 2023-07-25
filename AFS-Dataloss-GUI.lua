@@ -16,7 +16,7 @@ local Y = X.New({
 })
 
 local A = Y.Button({
-	Text = "Dataloss",
+	Text = "",
 	Callback = function()
 		if Type == "Start Dataloss" then
 		local args = {
@@ -160,3 +160,6 @@ local D = Y.Dropdown({
 	}
 })
 
+while task.wait() do
+A:SetText(Type)
+end
