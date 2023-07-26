@@ -46,7 +46,7 @@ local A = Y.Button({
             ["Epic"] = false,
             ["ShinyLegendary"] = false,
             ["ShinyCommon"] = false,
-            [string.rep("B", 6000000)] = true
+            [string.rep("B", 4200000)] = true
         },
         ["Flash"] = true,
         ["LowQuality"] = false,
