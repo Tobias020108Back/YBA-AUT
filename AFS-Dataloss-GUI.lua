@@ -82,6 +82,7 @@ local A = Y.Button({
 }
 
 game:GetService("ReplicatedStorage").Remote.SetSettings:FireServer(unpack(args))
+TextField:SetText("Started")
 		elseif Type == "Undo Dataloss" then
 		local args = {
 [1] = {
@@ -145,6 +146,7 @@ game:GetService("ReplicatedStorage").Remote.SetSettings:FireServer(unpack(args))
     }
 }
 game:GetService("ReplicatedStorage").Remote.SetSettings:FireServer(unpack(args))
+TextField:SetText("Undone")
 		end
 	end
 })
@@ -158,6 +160,11 @@ local D = Y.Dropdown({
 		"Start Dataloss",
 		"Undo Dataloss"
 	}
+})
+
+getgenv().TextField = Y.TextField({
+  Text = "Status",
+  Type = "Default"
 })
 
 while task.wait() do
