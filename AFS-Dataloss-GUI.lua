@@ -69,13 +69,13 @@ local A = Y.Button({
         ["AutoSellPassives"] = {},
         ["SoundsEnabled"] = true,
         ["AutoClicker"] = true,
-        ["AutoSprint"] = false,
-        ["InstantPassive"] = false,
+        ["AutoSprint"] = true,
+        ["InstantPassive"] = true,
         ["TradesEnabled"] = true,
         ["OwnFX"] = true,
         ["MagnetPass"] = true,
         ["BoostPaused"] = false,
-        ["AutoAttack"] = false,
+        ["AutoAttack"] = true,
         ["MusicEnabled"] = true,
         ["OtherFX"] = true
     }
@@ -134,13 +134,13 @@ TextField:SetText("Started")
         ["AutoSellPassives"] = {},
         ["SoundsEnabled"] = true,
         ["AutoClicker"] = true,
-        ["AutoSprint"] = false,
-        ["InstantPassive"] = false,
+        ["AutoSprint"] = true,
+        ["InstantPassive"] = true,
         ["TradesEnabled"] = true,
         ["OwnFX"] = true,
         ["MagnetPass"] = true,
         ["BoostPaused"] = false,
-        ["AutoAttack"] = false,
+        ["AutoAttack"] = true,
         ["MusicEnabled"] = true,
         ["OtherFX"] = true
     }
