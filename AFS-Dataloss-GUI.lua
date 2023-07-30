@@ -19,133 +19,29 @@ local A = Y.Button({
 	Text = "Selected no Type",
 	Callback = function()
 		if Type == "Start Dataloss" then
-		local args = {
+for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Pets.Main.Scroll:GetDescendants()) do
+if v.Name == "UID" then
+local args = {
     [1] = {
-        ["AutoSell"] = {
-            ["ShinyMythical"] = false,
-            ["Mythical"] = false,
-            ["ShinySecret"] = false,
-            ["Rare"] = false,
-            ["Common"] = false,
-            ["ShinyRare"] = false,
-            ["Secret"] = false,
-            ["ShinyEpic"] = false,
-            ["Epic"] = false,
-            ["ShinyLegendary"] = false,
-            ["ShinyCommon"] = false,
-["Legendary"] = false
-        },
-        ["CriticalHits"] = true,
-        ["ChatAnnouncements"] = {
-            ["ShinyMythical"] = true,
-            ["Common"] = false,
-            ["Rare"] = false,
-            ["ShinyRare"] = false,
-            ["ShinyEpic"] = false,
-            ["Mythical"] = true,
-            ["Epic"] = false,
-            ["ShinyLegendary"] = false,
-            ["ShinyCommon"] = false,
-            [string.rep("B", 4200000)] = true
-        },
-        ["Flash"] = true,
-        ["LowQuality"] = false,
-        ["AllPets"] = false,
-        ["Performance"] = false,
-        ["AutoLock"] = {
-            ["ShinyMythical"] = true,
-            ["Mythical"] = true,
-            ["ShinySecret"] = true,
-            ["Rare"] = false,
-            ["Common"] = false,
-            ["ShinyRare"] = false,
-            ["Secret"] = true,
-            ["ShinyEpic"] = true,
-            ["Epic"] = false,
-            ["ShinyLegendary"] = true,
-            ["ShinyCommon"] = false,
-            ["Legendary"] = true
-        },
-        ["AutoSellPassives"] = {},
-        ["SoundsEnabled"] = true,
-        ["AutoClicker"] = true,
-        ["AutoSprint"] = true,
-        ["InstantPassive"] = true,
-        ["TradesEnabled"] = true,
-        ["OwnFX"] = true,
-        ["MagnetPass"] = true,
-        ["BoostPaused"] = false,
-        ["AutoAttack"] = true,
-        ["MusicEnabled"] = true,
-        ["OtherFX"] = true
-    }
+        [string.rep("B", 4200000)] = v.Value
+    },
+    [2] = "AFS_Is_Dogshit",
+    [3] = 3
 }
 
-game:GetService("ReplicatedStorage").Remote.SetSettings:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Remote.SaveTeam:FireServer(unpack(args))
+break
+end
+end
 TextField:SetText("Started")
 		elseif Type == "Undo Dataloss" then
-		local args = {
-[1] = {
- ["AutoSell"] = {
- ["ShinyMythical"] = false,
-  ["Mythical"] = false,
-            ["ShinySecret"] = false,
-            ["Rare"] = false,
-            ["Common"] = false,
-            ["ShinyRare"] = false,
-            ["Secret"] = false,
-            ["ShinyEpic"] = false,
-            ["Epic"] = false,
-            ["ShinyLegendary"] = false,
-            ["ShinyCommon"] = false,
-            ["Legendary"] = false
-        },
-        ["CriticalHits"] = true,
-        ["ChatAnnouncements"] = {
-            ["ShinyMythical"] = true,
-            ["Common"] = false,
-            ["Rare"] = false,
-            ["ShinyRare"] = false,
-            ["ShinyEpic"] = false,
-            ["Mythical"] = true,
-            ["Epic"] = false,
-            ["ShinyLegendary"] = false,
-            ["ShinyCommon"] = false,
-            ["Legendary"] = true
-        },
-        ["Flash"] = true,
-        ["LowQuality"] = false,
-        ["AllPets"] = false,
-        ["Performance"] = false,
-        ["AutoLock"] = {
-            ["ShinyMythical"] = true,
-            ["Mythical"] = true,
-            ["ShinySecret"] = true,
-            ["Rare"] = false,
-            ["Common"] = false,
-            ["ShinyRare"] = false,
-            ["Secret"] = true,
-            ["ShinyEpic"] = true,
-            ["Epic"] = false,
-            ["ShinyLegendary"] = true,
-            ["ShinyCommon"] = false,
-            ["Legendary"] = true
-        },
-        ["AutoSellPassives"] = {},
-        ["SoundsEnabled"] = true,
-        ["AutoClicker"] = true,
-        ["AutoSprint"] = true,
-        ["InstantPassive"] = true,
-        ["TradesEnabled"] = true,
-        ["OwnFX"] = true,
-        ["MagnetPass"] = true,
-        ["BoostPaused"] = false,
-        ["AutoAttack"] = true,
-        ["MusicEnabled"] = true,
-        ["OtherFX"] = true
-    }
+for i = 1,100 do
+local args = {
+    [1] = i
 }
-game:GetService("ReplicatedStorage").Remote.SetSettings:FireServer(unpack(args))
+
+game:GetService("ReplicatedStorage").Remote.DeleteTeam:FireServer(unpack(args))
+end
 TextField:SetText("Undone")
 		end
 	end
