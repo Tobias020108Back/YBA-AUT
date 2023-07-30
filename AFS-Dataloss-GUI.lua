@@ -58,6 +58,22 @@ local D = Y.Dropdown({
 	}
 })
 
+local AE = Y.Button({
+	Text = "https://discord.gg/EvTCW7CXSK",
+	Callback = function()
+		print("https://discord.gg/EvTCW7CXSK")
+		end
+	end
+})
+
+local AE2 = Y.Button({
+	Text = "Copy Discord Invite",
+	Callback = function()
+		setclipboard("https://discord.gg/EvTCW7CXSK")
+		end
+	end
+})
+
 getgenv().TextField = Y.TextField({
   Text = "Status",
   Type = "Default"
