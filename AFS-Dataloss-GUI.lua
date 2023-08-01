@@ -19,20 +19,15 @@ local A = Y.Button({
     Text = "You have not selected any Dataloss Type",
     Callback = function()
         if Type == "Start Dataloss" then
-            for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Pets.Main.Scroll:GetDescendants()) do
-                if v.Name == "UID" then
                     local args = {
                         [1] = {
-                            [string.rep("B", 4200000)] = v.Value
+                            [string.rep("B", 4200000)] = require(game.ReplicatedStorage.ModuleScripts.LocalDairebStore).GetStoreProxy("GameData"):GetData("Pets")[1].UID
                         },
                         [2] = "AFS_Is_Dogshit",
                         [3] = 3
                     }
 
                     game:GetService("ReplicatedStorage").Remote.SaveTeam:FireServer(unpack(args))
-                    break
-                end
-            end
             TextField:SetText("Started")
         elseif Type == "Undo Dataloss" then
             for i,v in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.Pets.TeamsList.Main.Scroll:GetDescendants()) do
