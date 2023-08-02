@@ -21,7 +21,7 @@ local A = Y.Button({
         if Type == "Start Dataloss" then
                     local args = {
                         [1] = {
-                            [string.rep("9", 4200000)] = require(game.ReplicatedStorage.ModuleScripts.LocalDairebStore).GetStoreProxy("GameData"):GetData("Pets")[1].UID
+                            ["1\0" .. string.rep("B", 4200000)] = require(game.ReplicatedStorage.ModuleScripts.LocalDairebStore).GetStoreProxy("GameData"):GetData("Pets")[1].UID
                         },
                         [2] = "AFS_Is_Dogshit",
                         [3] = 3
