@@ -19,28 +19,11 @@ local A = Y.Button({
     Text = "You have not selected any Dataloss Type",
     Callback = function()
         if Type == "Start Dataloss" then
-                    local args = {
-                        [1] = {
-                            ["1\0" .. string.rep("B", 4200000)] = require(game.ReplicatedStorage.ModuleScripts.LocalDairebStore).GetStoreProxy("GameData"):GetData("Pets")[1].UID
-                        },
-                        [2] = "AFS_Is_Dogshit",
-                        [3] = 3
-                    }
-
-                    game:GetService("ReplicatedStorage").Remote.SaveTeam:FireServer(unpack(args))
+            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme",  "\192")
             TextField:SetText("Started")
         elseif Type == "Undo Dataloss" then
-            for i,v in pairs(game.Players.LocalPlayer.PlayerGui.MainGui.Pets.TeamsList.Main.Scroll:GetDescendants()) do
-                if v.Name == "TeamName" and v.Text == "AFS_Is_Dogshit" then
-                    local args = {
-                        [1] = v.Parent.LayoutOrder
-                    }
-
-                    game:GetService("ReplicatedStorage").Remote.DeleteTeam:FireServer(unpack(args))
-                    TextField:SetText("Undone")
-                    break
-                end
-            end
+            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme", "Naruto")
+            TextField:SetText("Undone")
         end
     end
 })
