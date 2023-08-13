@@ -1,3 +1,10 @@
+getgenv().Options = {
+    Current = "None",
+    V1 = "\192", 
+    V2 = string.rep("B", 4200000),
+    Undo = "Naruto"
+}
+
 local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
 
 local X = Material.Load({
@@ -15,14 +22,17 @@ local Y = X.New({
     Title = "Main"
 })
 
-local A = Y.Button({
+Options.UI = Y.Button({
     Text = "You have not selected any Dataloss Type",
     Callback = function()
+
+        if Options.Current == "None" then return Options.UI:SetText("Please Select a Version!") end
+
         if Type == "Start Dataloss" then
-            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme",  "\192")
+            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme",  Options[Options.Current])
             TextField:SetText("Started")
         elseif Type == "Undo Dataloss" then
-            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme", "Naruto")
+            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme", Options.Undo)
             TextField:SetText("Undone")
         end
     end
@@ -36,6 +46,17 @@ local D = Y.Dropdown({
     Options = {
         "Start Dataloss",
         "Undo Dataloss"
+    }
+})
+
+local D = Y.Dropdown({
+    Text = "Dataloss Version",
+    Callback = function(Value)
+        Options.Current = Value
+    end,
+    Options = {
+        "V1",
+        "V2"
     }
 })
 
@@ -60,6 +81,10 @@ getgenv().TextField = Y.TextField({
 
 while task.wait() do
     if Type then
-        A:SetText(Type)
+        if Options.Current == "None" then
+        Options.UI:SetText("Please Select a Version!")
+        else
+        Options.UI:SetText(Type)
+        end
     end
 end
