@@ -1,7 +1,6 @@
 getgenv().Options = {
     Current = "None",
-    V1 = "\192", 
-    V2 = string.rep("B", 4200000),
+    V1 = "\237\190\140",
     Undo = "Naruto"
 }
 
@@ -55,8 +54,7 @@ local D = Y.Dropdown({
         Options.Current = Value
     end,
     Options = {
-        "V1",
-        "V2"
+        "V1"
     }
 })
 
