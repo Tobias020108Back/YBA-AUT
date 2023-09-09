@@ -1,88 +1,67 @@
-getgenv().Options = {
-    Current = "None",
-    V1 = "\237\190\140",
-    Undo = "Naruto"
-}
+function Return_Lowest_Unit(Unit_Table)
+    local Lowest_Level, Lowest_Unit = math.huge
+    
+    for _, Unit in ipairs(Unit_Table) do
+            if Unit["Level"] < Lowest_Level then
+                Lowest_Level = Unit["Level"]
+                Lowest_Unit = Unit
+            end
+    end
+    
+    return Lowest_Unit
+end
 
 local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
 
 local X = Material.Load({
-    Title = "AFS - tobias020108back.",
-    Style = 3,
-    SizeX = 500,
-    SizeY = 350,
-    Theme = "Dark",
-    ColorOverrides = {
-        MainFrame = Color3.fromRGB(35,35,35)
-    }
+	Title = "AFS - tobias020108back.",
+	Style = 3,
+	SizeX = 500,
+	SizeY = 350,
+	Theme = "Dark",
+	ColorOverrides = {
+		MainFrame = Color3.fromRGB(35,35,35)
+	}
 })
 
 local Y = X.New({
-    Title = "Main"
+	Title = "Main"
 })
 
-Options.UI = Y.Button({
-    Text = "You have not selected any Dataloss Type",
-    Callback = function()
+local A = Y.Button({
+	Text = "Selected no Type",
+	Callback = function()
+	if Type == "Start Dataloss" then
+        local args = {
+            [1] = Return_Lowest_Unit(require(game.ReplicatedStorage.ModuleScripts.LocalDairebStore).GetStoreProxy("GameData"):GetData("Pets")).UID,
+            [2] = true,
+            [3] = "\191"
+        }
 
-        if Options.Current == "None" then return Options.UI:SetText("Please Select a Version!") end
+        game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("PetVault"):FireServer(unpack(args))
 
-        if Type == "Start Dataloss" then
-            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme",  Options[Options.Current])
-            TextField:SetText("Started")
-        elseif Type == "Undo Dataloss" then
-            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme", Options.Undo)
-            TextField:SetText("Undone")
-        end
-    end
-})
-
-local D = Y.Dropdown({
-    Text = "Dataloss Type",
-    Callback = function(Value)
-        getgenv().Type = Value
-    end,
-    Options = {
-        "Start Dataloss",
-        "Undo Dataloss"
-    }
+        TextField:SetText("Started")
+		end
+	end
 })
 
 local D = Y.Dropdown({
-    Text = "Dataloss Version",
-    Callback = function(Value)
-        Options.Current = Value
-    end,
-    Options = {
-        "V1"
-    }
-})
-
-local AE = Y.Button({
-    Text = "https://discord.gg/EvTCW7CXSK",
-    Callback = function()
-        print("https://discord.gg/EvTCW7CXSK")
-    end
-})
-
-local AE2 = Y.Button({
-    Text = "Copy Discord Invite",
-    Callback = function()
-        setclipboard("https://discord.gg/EvTCW7CXSK")
-    end
+	Text = "Type",
+	Callback = function(Value)
+		getgenv().Type = Value
+	end,
+	Options = {
+		"Start Dataloss"
+	}
 })
 
 getgenv().TextField = Y.TextField({
-    Text = "Status",
-    Type = "Default"
+  Text = "Status",
+  Type = "Default"
 })
 
 while task.wait() do
-    if Type then
-        if Options.Current == "None" then
-        Options.UI:SetText("Please Select a Version!")
-        else
-        Options.UI:SetText(Type)
-        end
-    end
+if Type then
+A:SetText(Type)
+end
 end
