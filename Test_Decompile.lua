@@ -136,10 +136,6 @@ local function deserialize(bytecode)
                     proto.largeLineInfo[j] = reader:nextInt()
                 end
             end
-            
-            if (reader:nextByte() == 1) then -- Has Debug info?
-                error'disassemble() can only be called on ROBLOX scripts'
-            end
         end
         
         local mainProtoId = reader:nextVarInt()
