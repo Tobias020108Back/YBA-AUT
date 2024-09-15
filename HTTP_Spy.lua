@@ -4,6 +4,8 @@
 
 assert(syn or http, "Unsupport exploit (should support syn.request or http.request)");
 
+warn("Trying to run...")
+
 local options = ({...})[1] or { AutoDecode = true, Highlighting = true, SaveLogs = true, CLICommands = true, ShowResponse = true, BlockedURLs = {}, API = true };
 local version = "v1.1.3";
 local logname = string.format("%d-%s-log.txt", game.PlaceId, os.date("%d_%m_%y"));
